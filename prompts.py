@@ -1,5 +1,5 @@
 from typing import List
-from .database import Data
+from database import Data
 
 
 def build(

@@ -1,5 +1,5 @@
 import argparse
-from .logger import get_logger
+from logger import get_logger
 from agent import agent
 from database import Database
 from ingestion import load_files
@@ -21,7 +21,13 @@ def main(keyword_path: str, article_path: str) -> None:
     logger.info("Searching for links and images")
     links = db.get_keyword_links(keywords.splitlines())
     images = db.get_keyword_images(keywords.splitlines())
-    logger.info("Links and images found", {"links": links, "images": images})
+    logger.info(
+        "Links and images found",
+        extra={
+            "links": links,
+            "images": images
+        }
+    )
 
     logger.info("Generate prompt")
     prompt = prompts.build(
@@ -31,14 +37,14 @@ def main(keyword_path: str, article_path: str) -> None:
         images,
         links
     )
-    logger.info("Generated prompt", prompt)
+    logger.info(f"Generated prompt: {prompt}")
 
-    logger.info("Send prompt to the agent")
+    logger.info("Sending prompt to the agent")
     res = agent.chat(prompt)
     if not res:
         logger.error("No response from the agent")
 
-    output_path = "enriched_" + article_path
+    output_path = article_path.replace(".md", "_enriched.md")
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(res.strip())
 

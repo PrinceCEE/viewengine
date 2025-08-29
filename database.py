@@ -25,7 +25,7 @@ class Database:
             for keyword in keywords:
                 search_item = f"%{keyword}%"
                 cursor.execute(
-                    "SELECT url, topic_tags FROM resources WHERE topic_tags ILIKE ?", search_item)
+                    "SELECT url, topic_tags FROM resources WHERE topic_tags LIKE ?", (search_item.lower(),))
                 rows = cursor.fetchall()
                 if rows:
                     for row in rows:
@@ -45,7 +45,7 @@ class Database:
             for keyword in keywords:
                 search_item = f"%{keyword}%"
                 cursor.execute(
-                    "SELECT url, tags FROM images WHERE tags ILIKE ?", search_item)
+                    "SELECT url, tags FROM images WHERE tags LIKE ?", (search_item.lower(),))
                 rows = cursor.fetchall()
                 if rows:
                     for row in rows:

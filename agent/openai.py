@@ -1,7 +1,7 @@
 from .agent import LLMAgent
 import httpx
-from ..config import provider as config_provider
-from ..logger import get_logger
+from config import provider as config_provider
+from logger import get_logger
 
 
 class OpenAIAgent(LLMAgent):

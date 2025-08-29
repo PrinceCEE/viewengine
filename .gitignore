@@ -2,3 +2,4 @@
 .env
 logs
 .python-version
+__pycache__
