@@ -49,6 +49,7 @@ def main(keyword_path: str, article_path: str) -> None:
         f.write(res.strip())
 
     logger.info(f"Enriched markdown successfully saved into {output_path}")
+    db.close()
 
 
 if __name__ == "__main__":
